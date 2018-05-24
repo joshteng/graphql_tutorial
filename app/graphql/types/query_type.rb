@@ -10,9 +10,10 @@
 # end
 
 class Types::QueryType < GraphQL::Schema::Object
-  field :allLinks, [Types::LinkType], null: false, method: :get_all_links
+  # field :allLinks, [Types::LinkType], null: false, method: :get_all_links
+  field :allLinks, [Types::LinkType], null: false, function: Resolvers::LinksSearch
 
-  def get_all_links(_obj, _args, _ctx)
-    Link.all
-  end
+  # def get_all_links
+  #   Link.includes(:user).all
+  # end
 end

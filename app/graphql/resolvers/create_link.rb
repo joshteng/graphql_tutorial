@@ -8,14 +8,17 @@ class Resolvers::CreateLink < GraphQL::Function
   # return type from the mutation
   type Types::LinkType
 
-  # the mutation method
-  # _obj - is parent object, which in this case is nil
-  # args - are the arguments passed
-  # _ctx - is the GraphQL context (which would be discussed later)
-  def call(_obj, args, _ctx)
-    Link.create!(
+  def call(_obj, args, ctx)
+    link = Link.new(
       description: args[:description],
-      url: args[:url]
+      url: args[:url],
+      user: ctx[:current_user]
     )
+    link.save!
+    link
+  rescue ActiveRecord::RecordInvalid => err
+    # on error, return an error:
+    ctx.add_error(GraphQL::ExecutionError.new(link.errors.full_messages))
+    # https://github.com/exAspArk/graphql-errors/issues/9
   end
 end

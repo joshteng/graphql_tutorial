@@ -37,6 +37,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'graphql', '1.8.0'
+gem 'search_object', '1.2.0'
+gem 'search_object_graphql', '0.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -51,6 +53,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'graphiql-rails'
+  gem 'parser'
 end
 
 group :test do
